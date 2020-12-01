@@ -21,14 +21,14 @@ class Comm
         $mail->From = 'oms-monitoring@decathlon.com';
         $mail->FromName = "Decathlon Monitoring";
         foreach (self::ADMIN_MAIL as $mail_to) {
-            if (!empty($mail_to))
+            if (!empty($mail_to)) {
                 $mail->AddAddress($mail_to);
+            }
         }
         $mail->Subject = $title;
         $mail->Body = $body;
 
         $mail->IsHTML(true);
-        $mail_send = $mail->Send();
-        return $mail_send;
+        return $mail->Send();
     }
 }
