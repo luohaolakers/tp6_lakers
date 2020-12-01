@@ -38,17 +38,12 @@ class FtpUtils
     public function sendFile($server_path, $loca_path)
     {
         if (!is_file($loca_path)) {
-//            Log::save_error_log("文件不存在!", $loca_path, $server_path, $task_id, $this->config_name);
-//            exception("文件不存在");
             return false;
         }
         $this->ftpConn->mkdir($server_path);
         if (!$this->ftpConn->sendFile($server_path, $loca_path)) {
-//            Log::save_error_log("文件上传失败", $loca_path, $server_path, $task_id, $this->config_name);
-//            exception("文件上传失败");
             return false;
         }
-//        Log::save_success_log("文件上传成功!", $loca_path, $server_path, $task_id, $this->config_name);
         return true;
 
     }

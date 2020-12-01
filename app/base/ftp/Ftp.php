@@ -8,7 +8,7 @@ class Ftp
 
     public function connect($username, $password, $host, $port = 21)
     {
-        $this->conn = ftp_connect($host);
+        $this->conn = ftp_connect($host, $port);
         if (!ftp_login($this->conn, $username, $password)) {
             $this->conn = null;
             return false;
@@ -21,7 +21,9 @@ class Ftp
 
     public function sendFile($server_path, $loca_path)
     {
-        if (empty($this->conn)) return false;
+        if (empty($this->conn)) {
+            return false;
+        }
         if (!ftp_put($this->conn, $server_path, $loca_path, FTP_BINARY)) {
             return false;
         }
@@ -31,8 +33,7 @@ class Ftp
     //获取文件列表
     function getFileList($directory)
     {
-        $getBack = ftp_nlist($this->conn, $directory);
-        return $getBack;
+        return ftp_nlist($this->conn, $directory);
     }
 
     /**
@@ -47,8 +48,7 @@ class Ftp
         if (!$this->is_conn()) {
             return false;
         }
-        $result = @ftp_get($this->conn, $local, $remote, FTP_BINARY);
-        return $result;
+        return @ftp_get($this->conn, $local, $remote, FTP_BINARY);
     }
 
     /**
@@ -62,8 +62,7 @@ class Ftp
         if (!$this->is_conn()) {
             return false;
         }
-        $result = ftp_rename($this->conn, $oldName, $newName);
-        return $result;
+        return ftp_rename($this->conn, $oldName, $newName);
     }
 
     /**
@@ -76,8 +75,7 @@ class Ftp
         if (!$this->is_conn()) {
             return false;
         }
-        $result = ftp_delete($this->conn, $file);
-        return $result;
+        return ftp_delete($this->conn, $file);
     }
 
     /**
