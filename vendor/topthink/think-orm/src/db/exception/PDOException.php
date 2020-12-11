@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 // | Author: 麦当苗儿 <zuojiazi@vip.qq.com> <http://zjzit.cn>
 // +----------------------------------------------------------------------
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace think\db\exception;
 
@@ -21,18 +21,18 @@ class PDOException extends DbException
     /**
      * PDOException constructor.
      * @access public
-     * @param  \PDOException $exception
-     * @param  array         $config
-     * @param  string        $sql
-     * @param  int           $code
+     * @param \PDOException $exception
+     * @param array $config
+     * @param string $sql
+     * @param int $code
      */
     public function __construct(\PDOException $exception, array $config = [], string $sql = '', int $code = 10501)
     {
         $error = $exception->errorInfo;
 
         $this->setData('PDO Error Info', [
-            'SQLSTATE'             => $error[0],
-            'Driver Error Code'    => isset($error[1]) ? $error[1] : 0,
+            'SQLSTATE' => isset($error[0]) ? $error[0] : 0,
+            'Driver Error Code' => isset($error[1]) ? $error[1] : 0,
             'Driver Error Message' => isset($error[2]) ? $error[2] : '',
         ]);
 
