@@ -2,12 +2,28 @@
 // 应用公共文件
 
 use think\facade\Config;
-use app\base\kafka\Producer as KafkaProducer;
+use app\base\log\LogUtils;
 
 
+if (!function_exists('elk_log')) {
+    function elk_log($msg, $loggerName, $moduleName = 'mian', $path = 'main')
+    {
+        $logUtils = new LogUtils();
+        $logUtils::elkLog($msg, $loggerName, $moduleName, $path);
+    }
+}
 
-if(!function_exists('rpc_call')){
+if (!function_exists('date_time')) {
+    function date_time($time = 0)
+    {
+        if (intval($time) == 0) {
+            $time = time();
+        }
+        return date('Y-m-d H:i:s', $time);
+    }
+}
 
+if (!function_exists('rpc_call')) {
     /***
      *
      * 请求API的统一入口
@@ -18,20 +34,17 @@ if(!function_exists('rpc_call')){
      * @return array 返回api的信息
      *
      */
-    function rpc_call($apiMethod, $parameters = array()){
+    function rpc_call($apiMethod, $parameters = array())
+    {
         $apis = Config::get('apis.routes');
-        if (array_key_exists($apiMethod, $apis))
-        {
+        if (array_key_exists($apiMethod, $apis)) {
             list($class, $method) = explode('@', $apis[$apiMethod]['uses']);
-        }
-        else
-        {
+        } else {
             throw new InvalidArgumentException("Api [$apiMethod] not defined");
         }
-        $class = 'app\\'.$class;
+        $class = 'app\\' . $class;
         $instance = new $class;
-        if( !method_exists($instance, $method) )
-        {
+        if (!method_exists($instance, $method)) {
             throw new InvalidArgumentException("Api [$apiMethod] method [$method] not defined");
         }
 //        $apiParams = $instance->getParams();

@@ -20,6 +20,7 @@ class CheckToken
         return $return;
     }
 
+    //https://blog.csdn.net/cjs5202001/article/details/80228937
     public function check($params)
     {
         try {
@@ -32,7 +33,7 @@ class CheckToken
             throw new \LogicException($e->getMessage());
         } catch (\Firebase\JWT\ExpiredException $e) {  // token过期
             throw new \LogicException($e->getMessage());
-        } catch (Exception $e) {  //其他错误
+        } catch (\Exception $e) {  //其他错误
             throw new \LogicException($e->getMessage());
         }
         return $decodedObj;
