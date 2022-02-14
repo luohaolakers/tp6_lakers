@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Comm
 {
-    const ADMIN_MAIL = ['haoyuan.luo.partner@decathlon.com'];
+    const ADMIN_MAIL = ['1147852676@qq.com'];
 
     public static function sendToAdmin($title, $body)
     {
@@ -18,7 +18,7 @@ class Comm
         $mail->SMTPAuth = false;
         $mail->SMTPAutoTLS = false;
         $mail->Host = 'mta.subsidia.org';
-        $mail->From = 'oms-monitoring@decathlon.com';
+        $mail->From = 'testlakers.com';
         $mail->FromName = "Decathlon Monitoring";
         foreach (self::ADMIN_MAIL as $mail_to) {
             if (!empty($mail_to)) {

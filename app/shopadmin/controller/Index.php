@@ -78,7 +78,8 @@ class Index extends BaseController
     public function httpaasd()
     {
         $baseHttpClient = new HttpClient();
-        $url = 'https://oms-preprod.decathlon.com.cn:9443/index.php/openapi/rpc/service/';
+        //不要用公司域名 会有相关安全问题
+        $url = 'https://lakers.com/index.php/openapi/rpc/service/';
         $data = $baseHttpClient->set_ssl(false)->get($url);
         var_dump($data);
     }
