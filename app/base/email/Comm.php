@@ -19,7 +19,7 @@ class Comm
         $mail->SMTPAutoTLS = false;
         $mail->Host = 'mta.subsidia.org';
         $mail->From = 'testlakers.com';
-        $mail->FromName = "Decathlon Monitoring";
+        $mail->FromName = "test Monitoring";
         foreach (self::ADMIN_MAIL as $mail_to) {
             if (!empty($mail_to)) {
                 $mail->AddAddress($mail_to);
